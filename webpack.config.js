@@ -11,6 +11,7 @@ module.exports = {
     path: path.resolve(__dirname,'dist')
   },
   resolve: {
+    mainFields: ['module', 'main'],
     extensions: ['.tsx', '.ts', '.js'],
   },
   externals:[NodeExternals()],
@@ -22,7 +23,11 @@ module.exports = {
       },
       {
         test: /\.js?$/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          presets: ['@babel/preset-env']
+        }
       }
     ]
   },

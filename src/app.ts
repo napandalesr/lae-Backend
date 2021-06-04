@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser'
 import swaggerUi from 'swagger-ui-express'
 import Router from "./router/api";
 
+
 import * as swaggerDocument from '../api/swagger.json'
 
 class App {
