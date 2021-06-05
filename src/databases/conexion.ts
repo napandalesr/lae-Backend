@@ -13,6 +13,10 @@ export class conexion
   };
 
   initial=()=>{
-    return firebase.initializeApp(this.firebaseConfig);
+    if (!firebase.apps.length) {
+      return firebase.initializeApp(this.firebaseConfig);
+    }else {
+      return firebase.app();
+    }
   }
 }

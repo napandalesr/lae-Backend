@@ -1,43 +1,39 @@
 import * as express from 'express'
 import cors from 'cors'
-import userImpDao from "../class/userImpDao";
-import user from "../interface/user";
+import userController from "../controller/userController";
 
-class Router implements user{
-  name
-  lastName
-  email
+class Router{
   constructor(server: express.Express) {
     const router = express.Router();
 
-    router.get('/', (req: express.Request, res: express.Response) => {
-      res.json({message:'Hello worl'});
+    router.get('/', async(req: express.Request, res: express.Response) => {
+      res.send('prueba')
     });
 
-    router.get('/users', (req: express.Request, res: express.Response) => {
-      this.name="Neider"
-      this.lastName='Renteria'
-      this.email='no'
-      const data:user={
-        name:"Neider",
-        lastName:'Renteria',
-        email:'no'
+    router.get('/users', async(req: express.Request, res: express.Response) => {
+      res.json(await new userController().index());
+    });
+
+    router.post('/users', async(req: express.Request, res: express.Response) => {
+      const data={
+        name:"Andres",
+        lastName:"Pandales",
+        email:"ok"
       }
-      const s= new userImpDao()
-      s.create(data);
-      res.json({message:0});
+      res.json(await new userController().create(data));
     });
 
-    router.post('/users', (req: express.Request, res: express.Response) => {
-      res.json({message:'Users'});
+    router.get('/users/:id', async(req: express.Request, res: express.Response) => {
+      res.json(await new userController().show('h59h1KJ0iHBNi4KnRfFK'));
     });
 
-    router.get('/users/:id', (req: express.Request, res: express.Response) => {
-      res.json({message:'Users'+req.params.id});
+    router.put('/users/:id', async(req: express.Request, res: express.Response) => {
+      res.json(await new userController().show(req.params.id));
     });
 
-    router.put('/users/:id', (req: express.Request, res: express.Response) => {
-      res.json({message:'Users'+req.params.id});
+    router.delete('/users/:id', async(req: express.Request, res: express.Response) => {
+      //req.params.id
+      res.json(await new userController().destroy('h59h1KJ0iHBNi4KnRfFK'));
     });
 
     router.options('*', cors());
