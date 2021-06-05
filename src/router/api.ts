@@ -15,16 +15,11 @@ class Router{
     });
 
     router.post('/users', async(req: express.Request, res: express.Response) => {
-      const data={
-        name:"Andres",
-        lastName:"Pandales",
-        email:"ok"
-      }
-      res.json(await new userController().create(data));
+      res.json(await new userController().create(req.body));
     });
 
     router.get('/users/:id', async(req: express.Request, res: express.Response) => {
-      res.json(await new userController().show('h59h1KJ0iHBNi4KnRfFK'));
+      res.json(await new userController().show(req.params.id));
     });
 
     router.put('/users/:id', async(req: express.Request, res: express.Response) => {
@@ -32,8 +27,7 @@ class Router{
     });
 
     router.delete('/users/:id', async(req: express.Request, res: express.Response) => {
-      //req.params.id
-      res.json(await new userController().destroy('h59h1KJ0iHBNi4KnRfFK'));
+      res.json(await new userController().destroy(req.params.id));
     });
 
     router.options('*', cors());
