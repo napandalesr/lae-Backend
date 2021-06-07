@@ -9,11 +9,11 @@ class RouterUser{
     this.router = express.Router();
   }
   routes=()=>{
-    this.router.get('/', async(req: express.Request, res: express.Response) => {
+    this.router.get('/', cors(corsOptions),async(req: express.Request, res: express.Response) => {
       res.send('prueba')
     });
 
-    this.router.get('/users', async(req: express.Request, res: express.Response) => {
+    this.router.get('/users',cors(corsOptions), async(req: express.Request, res: express.Response) => {
       res.json(await new userController().index());
     });
 
@@ -28,15 +28,15 @@ class RouterUser{
       res.json(await new userController().create(req.body));
     });
 
-    this.router.get('/users/:id', async(req: express.Request, res: express.Response) => {
+    this.router.get('/users/:id', cors(corsOptions),async(req: express.Request, res: express.Response) => {
       res.json(await new userController().show(req.params.id));
     });
 
-    this.router.put('/users/:id', async(req: express.Request, res: express.Response) => {
+    this.router.put('/users/:id', cors(corsOptions),async(req: express.Request, res: express.Response) => {
       res.json(await new userController().show(req.params.id));
     });
 
-    this.router.delete('/users/:id', async(req: express.Request, res: express.Response) => {
+    this.router.delete('/users/:id', cors(corsOptions),async(req: express.Request, res: express.Response) => {
       res.json(await new userController().destroy(req.params.id));
     });
 

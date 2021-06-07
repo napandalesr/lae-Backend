@@ -6,6 +6,7 @@ const message = {
   NOT_FOUNT: 'no encontrado',
   DELETE: 'eliminado corretamente',
   NO_DELETE: 'no se ha podido eliminar',
+  NO_UPDATE: 'no se ha podido editar',
   UPDATE: 'actualizado'
 }
 
