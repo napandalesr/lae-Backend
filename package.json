@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack -w --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --init"
   },
   "keywords": [],
   "author": "Neider Andres Pandales Renteria",
