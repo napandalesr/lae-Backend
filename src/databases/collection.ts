@@ -9,13 +9,13 @@ class collection
   constructor(){
     this.firestore=new conexion();
   }
-  create=async(nameCollection,data)=>{
+  create=async(nameCollection,data,index)=>{
     let respons=await this.firestore.initial()
     .firestore()
     .collection(nameCollection)
     .add(data)
     .then((docRef) => {
-      return new response().succes('Usuario '+message.CREATE, docRef.id);
+      return new response().succes(index+message.CREATE, docRef.id);
     })
     .catch((error) => {
       return new response().failedDatabase(message.ACCESS_DENIED+' - '+error);
@@ -23,14 +23,14 @@ class collection
     return respons;
   };
 
-  get=async(nameCollection,id)=>{
+  get=async(nameCollection,id,index)=>{
     var docRef = await this.firestore.initial()
     .firestore().collection(nameCollection).doc(id);
     let respons=docRef.get().then((doc) => {
       if (doc.exists) {
         return new response().succes(doc.data(),doc.id);
       } else {
-        return new response().failedDatabase('Usuario '+message.NOT_FOUNT);
+        return new response().failedDatabase(index+message.NOT_FOUNT);
       }
     }).catch((error) => {
       return new response().failedDatabase(message.ACCESS_DENIED+' - '+error);
@@ -44,7 +44,7 @@ class collection
     .firestore().collection(nameCollection).get().then(async(querySnapshot) => {
       let array=[];
       await querySnapshot.forEach((doc) => {
-        array.push(doc.data());
+        array.push({...doc.data(),key:doc.id});
       });
       return array;
     })
@@ -61,18 +61,19 @@ class collection
     return respons;
   }
 
-  update=async(nameCollection,id)=>{
+  update=async(nameCollection,data,id)=>{
     let washingtonRef =await this.firestore.initial()
     .firestore().collection(nameCollection).doc(id);
-    let respons= washingtonRef.update({
-      capital: true
-    })
+    let respons= washingtonRef.update(
+      data
+    )
     .then(() => {
       return new response().succes(message.UPDATE,id);
     })
     .catch((error) => {
-      return new response().failed(message.NO_DELETE+' - '+error);  
+      return new response().failed(message.NO_UPDATE+' - '+error);  
     });
+    return respons;
   }
 }
 

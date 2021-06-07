@@ -17,12 +17,12 @@ class  userImpDao implements usersDAO<userClass>
     if(responseAuth.code==="auth/email-already-in-use"){
       return {failed:'Usuario ya existe'};
     }
-    const response =await this.objColletion.create('Users',data);    
+    const response =await this.objColletion.create('Users',data,'Usuarios ');    
     return {...responseAuth,response};
   }
   
   get=async(id)=>{
-    const response =await this.objColletion.get('Users',id);
+    const response =await this.objColletion.get('Users',id,'Usuarios ');
     return response;
   }
 
@@ -37,7 +37,7 @@ class  userImpDao implements usersDAO<userClass>
   }
 
   update = async(data,id)=>{
-    const response =await this.objColletion.delete('Users',data,id);
+    const response =await this.objColletion.update('Users',data,id);
     return response;
   }
 

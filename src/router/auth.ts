@@ -9,7 +9,7 @@ class RouterAuth{
     this.router = express.Router();
   }
   routes=()=>{
-    this.router.post('/auth', async(req: express.Request, res: express.Response) => {
+    this.router.post('/auth', cors(corsOptions), async(req: express.Request, res: express.Response) => {
       const response=new authValidation().create(req.body);
       if(response!=='ok'){
         res.status(400).json({
@@ -19,10 +19,10 @@ class RouterAuth{
       }else
       res.json(await new authController().login(req.body));
     });
+    var corsOptions = {
+      origin: '*',
+    }
 
-    this.router.get('/auth', async(req: express.Request, res: express.Response) => {
-      res.json({aja:'ok'});
-    });
     this.router.options('*', cors());
     return this.router;
   }
