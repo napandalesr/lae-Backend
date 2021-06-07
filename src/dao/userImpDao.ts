@@ -1,17 +1,24 @@
 import usersDAO from "../interface/usersDAO";
-import user from "../class/user";
+import userClass from "../class/user";
 
 import collection from "../databases/collection";
+import auth from "../databases/auth";
 
-class  userImpDao implements usersDAO<user>
+class  userImpDao implements usersDAO<userClass>
 {
+  private objAuth;
   private objColletion;
   constructor(){
     this.objColletion=new collection();
+    this.objAuth=new auth();
   }
   create=async(data)=>{
-    const response =await this.objColletion.create('Users',data);
-    return response;
+    const responseAuth= await this.objAuth.authCreateUser(data.callbackAuth.email,data.callbackAuth.password);
+    if(responseAuth.code==="auth/email-already-in-use"){
+      return {failed:'Usuario ya existe'};
+    }
+    const response =await this.objColletion.create('Users',data);    
+    return {...responseAuth,response};
   }
   
   get=async(id)=>{

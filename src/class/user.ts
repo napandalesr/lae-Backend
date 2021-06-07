@@ -1,6 +1,6 @@
 
 
-class user
+class userClass
 {
   name:string;
   lastName:string;
@@ -13,4 +13,4 @@ class user
   }
 }
 
-export default user;
+export default userClass;

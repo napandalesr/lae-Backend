@@ -1,7 +1,9 @@
 
 import userImpDao from "../dao/userImpDao";
 import userClass from "../class/user";
+import authClass from "../class/auth";
 import userModel from "../model/userModel";
+import authModel from "../model/authModel";
 
 class userController
 {
@@ -11,9 +13,10 @@ class userController
   }
 
   create=async(data)=>{
-    const model=new userModel(new userClass(data.name,data.lastName,data.email)).callback();
+    const callbackAuth=new authModel(new authClass(data.email,data.password)).callback();
+    const callback=new userModel(new userClass(data.name,data.lastName,data.email)).callback();
     const use= new userImpDao();
-    return await use.create(model);
+    return await use.create({...callback,callbackAuth});
   }
 
   show=async(id)=>{

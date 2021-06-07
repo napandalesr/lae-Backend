@@ -64,7 +64,6 @@ class collection
   update=async(nameCollection,id)=>{
     let washingtonRef =await this.firestore.initial()
     .firestore().collection(nameCollection).doc(id);
-    // Set the "capital" field of the city 'DC'
     let respons= washingtonRef.update({
       capital: true
     })

@@ -1,11 +1,11 @@
-import user from "../class/user";
+import userClass from "../class/user";
 
 class userModel
 {
   name:string
   lastName:string
   email:string
-  constructor(user:user){
+  constructor(user:userClass){
     this.name=user.name;
     this.lastName=user.lastName;
     this.email=user.email;
